@@ -1,4 +1,5 @@
 struktur folder
+```
 wifi1/
 │
 ├── app/
@@ -76,6 +77,9 @@ wifi1/
    ├── api.php
    ├── console.php
    └── web.php
+
+```
+
 ```
 git clone https://github.com/mdikifahriza/wifi1/
 cp .env.example .env
