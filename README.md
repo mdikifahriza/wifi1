@@ -6,7 +6,7 @@ php artisan key:generate
 composer dumpautoload
 ```
 
-setup isi config:
+setup isi .env:
 
 ```
 MIDTRANS_SERVER_KEY=
