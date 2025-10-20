@@ -1,3 +1,81 @@
+struktur folder
+wifi1/
+│
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── AdminController.php
+│   │       ├── Controller.php
+│   │       ├── FetcHTTP.php
+│   │       ├── HotspotController.php
+│   │       ├── Ordercontroller.php
+│   │       ├── Qrgenerator.php
+│   │       ├── simulateSubmit.php
+│   │       └── webhookendp.php
+│   │
+│   ├── Models/
+│   │   ├── Order.php
+│   │   └── User.php
+│   │
+│   ├── Providers/
+│   │   └── AppServiceProvider.php
+│   │
+│   ├── Services/
+│   │   └── Htmlhelper.php
+│   │
+│   └── View/
+│       └── Components/
+│           └── Qrcode.php
+│
+├── bootstrap/
+│   └── cache/
+│       ├── app.php
+│       └── providers.php
+│
+├── config/
+│   ├── app.php
+│   ├── database.php
+│   ├── filesystems.php
+│   ├── logging.php
+│   ├── midtransAPI.php
+│   ├── queue.php
+│   ├── sanctum.php
+│   ├── services.php
+│   └── session.php
+│
+├── database/
+│   ├── factories/
+│   │   └── UserFactory.php
+│   │
+│   ├── migrations/
+│   │   ├── 0001_01_01_000000_create_users_table.php
+│   │   └── 2025_10_19_090224_create_orders_table.php
+│   │
+│   └── seeders/
+│       ├── AdminUserSeeder.php
+│       └── DatabaseSeeder.php
+│
+├── public/
+│   ├── js/ custom.js
+│
+├── resources/
+│   ├── js/
+│   │   ├── app.js
+│   │   └── bootstrap.js
+│   │
+│   └── views/
+│       ├── components/
+│       │   ├── LOG.blade.php
+│       │   ├── admin_login.blade.php
+│       │   ├── admin_orders.blade.php
+│       │   ├── countdown.blade.php
+│       │   ├── displaytransaction.blade.php
+│       │   ├── qrcode.blade.php
+│
+└── routes/
+   ├── api.php
+   ├── console.php
+   └── web.php
 ```
 git clone https://github.com/mdikifahriza/wifi1/
 cp .env.example .env
