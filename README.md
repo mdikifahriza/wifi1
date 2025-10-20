@@ -138,7 +138,7 @@ password
 biar fungsi bisa berjalan
 
 ```
-chatgpt
+tanya chatgpt
 cara instal adb driver dan minimal adb fastboot
 cara konek hp ke adb
 ```
@@ -147,5 +147,5 @@ hotspot_on.bat dan hotspot_off.bat buat hape realme c2
 
 ```
 rubah
-chatgpt rubah perintah adb ini ke tipe ponsel
+tanya chatgpt rubah perintah adb ini ke tipe ponsel
 ```
