@@ -1,0 +1,92 @@
+#include <WiFi.h>
+#include <WebServer.h>
+
+const char* ssid = "NJAJAL";
+const char* password = "12345678";
+
+WebServer server(80);
+
+#define RELAY_PIN 26
+bool dayaAda = false; // true = ON
+
+String getHTML() {
+  String html = "<!DOCTYPE html><html><head><meta charset='UTF-8'>";
+  html += "<title>ESP32 Relay Control</title>";
+  html += "<style>body{font-family:Arial;text-align:center;margin-top:50px;}";
+  html += "button{padding:15px 30px;font-size:20px;margin:10px;border:none;border-radius:10px;cursor:pointer;}";
+  html += ".ada{background-color:green;color:white;}";
+  html += ".tidak{background-color:red;color:white;}";
+  html += "</style></head><body>";
+  html += "<h1>ESP32 Web Server - Relay Control</h1>";
+  html += "<h3>Status Daya: " + String(dayaAda ? "ADA" : "TIDAK ADA") + "</h3>";
+  html += "<form action='/toggle' method='POST'><button class='" + String(dayaAda ? "tidak" : "ada") + "'>";
+  html += dayaAda ? "Matikan Daya" : "Hidupkan Daya";
+  html += "</button></form>";
+  html += "</body></html>";
+  return html;
+}
+
+void handleRoot() {
+  server.send(200, "text/html", getHTML());
+}
+
+// ESP32 menerima perintah dari Laravel
+void handleRelayCommand() {
+  if (!server.hasArg("status")) {
+    server.send(400, "text/plain", "Parameter 'status' diperlukan");
+    return;
+  }
+
+  String status = server.arg("status");
+  status.toUpperCase();
+
+  if (status == "ON") {
+    dayaAda = true;
+    digitalWrite(RELAY_PIN, LOW);
+    Serial.println("Relay ON (perintah dari Laravel)");
+    server.send(200, "text/plain", "Relay ON");
+  } 
+  else if (status == "OFF") {
+    dayaAda = false;
+    digitalWrite(RELAY_PIN, HIGH);
+    Serial.println("Relay OFF (perintah dari Laravel)");
+    server.send(200, "text/plain", "Relay OFF");
+  } 
+  else {
+    server.send(400, "text/plain", "Nilai 'status' harus ON atau OFF");
+  }
+}
+
+// Toggle manual lokal (opsional)
+void handleToggle() {
+  dayaAda = !dayaAda;
+  digitalWrite(RELAY_PIN, dayaAda ? LOW : HIGH);
+  server.send(200, "text/html", getHTML());
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(RELAY_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, HIGH); // start OFF
+
+  WiFi.begin(ssid, password);
+  Serial.print("Menghubungkan ke WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi connected!");
+  Serial.print("IP ESP32: ");
+  Serial.println(WiFi.localIP());
+
+  server.on("/", handleRoot);
+  server.on("/toggle", HTTP_POST, handleToggle);
+  server.on("/relay", HTTP_GET, handleRelayCommand);
+
+  server.begin();
+  Serial.println("Web server aktif! Siap menerima perintah dari Laravel.");
+}
+
+void loop() {
+  server.handleClient();
+}
