@@ -137,15 +137,5 @@ password
 
 biar fungsi bisa berjalan
 
-```
-tanya chatgpt
-cara instal adb driver dan minimal adb fastboot
-cara konek hp ke adb
-```
+koneksikan esp32 dan pc di satu jaringan yang sama dan sesuaikan kodingan arduino sesuai kebutuhan
 
-hotspot_on.bat dan hotspot_off.bat buat hape realme c2
-
-```
-rubah
-tanya chatgpt rubah perintah adb ini ke tipe ponsel
-```
